@@ -45,61 +45,69 @@ function App() {
     </div>
   );
 
-  if (error) return (
-    <div className="flex justify-center items-center h-screen p-5">
-      <div className="glass-panel p-8 max-w-md w-full text-center border-danger/50">
-        <div className="text-5xl mb-4">⚠️</div>
-        <h2 className="text-2xl font-bold text-danger mb-2">Connection Failed</h2>
-        <p className="text-text-secondary mb-6">
-          Could not reach the local backend server.
-        </p>
+  if (error) {
+    const isMixedContent = window.location.protocol === 'https:';
 
-        <div className="text-left bg-black/30 p-5 rounded-xl mb-6 text-sm text-text-secondary backdrop-blur-md border border-white/10 shadow-lg">
-          <p className="font-semibold text-text-primary mb-3 text-base">Troubleshooting & Support</p>
+    return (
+      <div className="flex justify-center items-center h-screen p-5">
+        <div className="glass-panel p-8 max-w-md w-full text-center border-danger/50">
+          <div className="text-5xl mb-4">⚠️</div>
+          <h2 className="text-2xl font-bold text-danger mb-2">Connection Failed</h2>
 
-          <ul className="list-disc pl-5 space-y-2 leading-relaxed">
-            <li>Please enable <span className="font-medium text-text-primary">"Local Network Access"</span> to allow battery data scanning.</li>
-            <li>We ensure Zero Harm — the app does not harm your system.</li>
-            <li>The tool only analyzes your battery data to offer accurate health suggestions.</li>
-          </ul>
-
-          <div className="mt-4 pt-4 border-t border-white/10 space-y-2">
-            <p className="font-semibold text-text-primary">Contact Us:</p>
-
-            <div className="flex items-center gap-2 text-text-secondary hover:text-text-primary transition">
-              <FiPhone className="text-accent" />
-              <a href="tel:8144129955" className="hover:underline">+91 81441 29955</a>
-            </div>
-
-            <div className="flex items-center gap-2 text-text-secondary hover:text-text-primary transition">
-              <FiMail className="text-accent" />
-              <a href="mailto:mrpatra.web@gmail.com" className="hover:underline">
-                mrpatra.web@gmail.com
-              </a>
-            </div>
-
-            <div className="flex items-center gap-2 text-text-secondary hover:text-text-primary transition">
-              <FiGlobe className="text-accent" />
+          {isMixedContent ? (
+            <div className="mb-6">
+              <p className="text-text-secondary mb-4">
+                <strong>Security Block Detected:</strong><br />
+                Browsers block access to your <b>Local Battery Data</b> from this <b>Secure (HTTPS)</b> website.
+              </p>
+              <p className="text-text-primary font-medium mb-4">
+                Please open the Local App to view your data:
+              </p>
               <a
-                href="https://mrpatra.vercel.app/"
+                href="http://localhost:5173"
                 target="_blank"
-                className="hover:underline"
+                rel="noopener noreferrer"
+                className="inline-block bg-accent hover:bg-accent-glow text-bg-dark font-bold py-3 px-6 rounded-full transition-all"
               >
-                www.mrpatra.vercel.app
+                Open Local App ↗
               </a>
+            </div>
+          ) : (
+            <>
+              <p className="text-text-secondary mb-6">
+                Could not reach the local backend server (http://localhost:5000).
+              </p>
+
+              <div className="text-left bg-black/30 p-5 rounded-xl mb-6 text-sm text-text-secondary backdrop-blur-md border border-white/10 shadow-lg">
+                <p className="font-semibold text-text-primary mb-3 text-base">Troubleshooting</p>
+                <ul className="list-disc pl-5 space-y-2 leading-relaxed">
+                  <li>Ensure the backend server is running.</li>
+                  <li>Check terminal for <code>npm start</code> errors.</li>
+                  <li>Verify nothing is blocking Port 5000.</li>
+                </ul>
+              </div>
+
+              <button
+                onClick={() => window.location.reload()}
+                className="bg-accent hover:bg-accent-glow text-bg-dark font-bold py-2 px-6 rounded-full transition-all"
+              >
+                Retry Connection
+              </button>
+            </>
+          )}
+
+          <div className="mt-8 pt-6 border-t border-white/10 space-y-2 text-sm">
+            <p className="font-semibold text-text-primary">Need Help?</p>
+            <div className="flex justify-center gap-4 text-text-secondary">
+              <a href="mailto:mrpatra.web@gmail.com" className="hover:text-text-primary hover:underline">Support</a>
+              <span>•</span>
+              <a href="https://mrpatra.vercel.app/" target="_blank" className="hover:text-text-primary hover:underline">Website</a>
             </div>
           </div>
         </div>
-
-        <button
-          onClick={() => window.location.reload()}
-          className="bg-accent hover:bg-accent-glow text-bg-dark font-bold py-2 px-6 rounded-full transition-all"
-        >
-          Retry Connection
-        </button>
       </div>
-    </div>
-  );
+    );
+  }
 
   return (
     <div className="max-w-[1200px] mx-auto py-10 px-5 min-h-screen flex flex-col">
