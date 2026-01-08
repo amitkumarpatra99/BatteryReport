@@ -1,4 +1,4 @@
-# Windows Battery Status Monitor 🔋
+# Battery Status Monitor 🔋
 
 A modern, full-stack MERN application that provides real-time telemetry and historical data for your Windows laptop's battery health. Built with a beautiful, dark-themed UI using Tailwind CSS and Glassmorphism design principles.
 
