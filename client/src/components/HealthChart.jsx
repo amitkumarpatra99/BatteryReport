@@ -51,7 +51,7 @@ const HealthChart = ({ data }) => {
                     <Area
                         type="monotone"
                         dataKey="percent"
-                        stroke="#38bdf8"
+                        stroke="#"
                         fillOpacity={1}
                         fill="url(#colorPercent)"
                     />
